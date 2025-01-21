@@ -4,10 +4,10 @@ services:
   cheshire-cat-core:
     build:
       context: ./core
-    container_name: cheshire_cat_core
+    container_name: cheshire_cat_core_180
     # Uncomment the two lines below to use your .env (see .env.example)
-    # env_file:
-    #  - .env
+    env_file:
+     - .env
     ports:
       - ${CCAT_CORE_PORT:-1865}:80
       - 5678:5678 # only for development purposes (take away in production)
@@ -17,9 +17,11 @@ services:
       # Timezone
       - TZ=${CCAT_TIMEZONE:-UTC}
     volumes:
-      - ./core:/app
+      - ./static:/app/cat/static
+      - ./plugins:/plugins
+      - ./data:/data
     command:
       - python
       - "-m"
       - "cat.main"
-    restart: unless-stopped
+    restart: always
