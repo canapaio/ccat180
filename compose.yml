@@ -17,9 +17,10 @@ services:
       # Timezone
       - TZ=${CCAT_TIMEZONE:-UTC}
     volumes:
+      - ./core:/app
       - ./static:/app/cat/static
-      - ./plugins:/plugins
-      - ./data:/data
+      - ./plugins:/app/cat/plugins
+      - ./data:/app/cat/data
     command:
       - python
       - "-m"
